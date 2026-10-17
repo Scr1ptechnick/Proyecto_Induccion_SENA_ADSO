@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENA | Formación Profesional Integral - Enfoque por Competencias</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sena: {
+                            green: '#39A900',
+                            darkGreen: '#2e8700',
+                            navy: '#00324D',
+                            lightNavy: '#08486d',
+                            orange: '#FF671B',
+                            bgGray: '#F8FAFC',
+                            cardBorder: '#E2E8F0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos de impresión para generar PDF limpio y profesional */
+        @media print {
+            nav, #btn-top, #download-modal, .no-print, header button, footer {
+                display: none !important;
+            }
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 11pt !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .card-print {
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                break-inside: avoid;
+            }
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #39A900;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2e8700;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-[#39A900] selection:text-white">
+
+    <!-- BARRA SUPERIOR INSTITUCIONAL -->
+    <div class="bg-sena-navy text-white text-xs py-2 px-4 border-b border-sena-green/30">
+        <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5 font-medium tracking-wide">
+                    <span class="w-2 h-2 rounded-full bg-sena-green animate-pulse"></span>
+                    Servicio Nacional de Aprendizaje SENA &bull; Formato Institucional DE-F-025 V.04
+                </span>
+                <span class="hidden md:inline text-slate-400">|</span>
+                <span class="hidden md:inline text-slate-300">Resolución 2198 de 2019 &bull; PEI SENA</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-300">
+                <button onclick="openModal('downloadModal')" class="hover:text-white flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-cloud-arrow-down text-sena-green"></i> Zona de Descargas
+                </button>
+                <button onclick="window.print()" class="hover:text-white flex items-center gap-1.5 transition-colors">
+                    <i class="fa-solid fa-file-pdf text-sena-orange"></i> Exportar a PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVEGACIÓN PRINCIPAL -->
+    <nav class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logotipo e Identidad -->
+                <a href="#hero" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-sena-green text-white flex items-center justify-center font-heading font-extrabold text-xl shadow-md group-hover:scale-105 transition-transform">
+                        S
+                    </div>
+                    <div>
+                        <span class="font-heading font-bold text-lg text-sena-navy block leading-tight">SENA <span class="text-sena-green">FPI</span></span>
+                        <span class="text-[11px] text-slate-500 font-medium">Enfoque por Competencias</span>
+                    </div>
+                </a>
+
+                <!-- Navegación Escritorio -->
+                <div class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-700">
+                    <a href="#fundamentos" class="hover:text-sena-green transition-colors">Fundamentos</a>
+                    <a href="#dimensiones" class="hover:text-sena-green transition-colors">Dimensiones</a>
+                    <a href="#niveles" class="hover:text-sena-green transition-colors">Niveles & Horas</a>
+                    <a href="#enfoque" class="hover:text-sena-green transition-colors">Enfoque</a>
+                    <a href="#taxonomia" class="hover:text-sena-green transition-colors">Taxonomía</a>
+                    <a href="#pedagogia" class="hover:text-sena-green transition-colors">Pedagogía</a>
+                    <a href="#perfiles" class="hover:text-sena-green transition-colors">Perfiles</a>
+                    <a href="#evaluacion" class="text-sena-orange hover:text-orange-600 transition-colors font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-clipboard-check"></i> Test FPI
+                    </a>
+                </div>
+
+                <!-- Botones Acciones Rápidas -->
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleSearchBar()" title="Buscar en el documento" class="p-2.5 rounded-lg text-slate-600 hover:text-sena-navy hover:bg-slate-100 transition-colors">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button onclick="openModal('downloadModal')" class="bg-sena-green hover:bg-sena-darkGreen text-white px-4 py-2 rounded-lg font-medium text-sm shadow-sm transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-download"></i>
+                        <span class="hidden sm:inline">Descargar Archivos</span>
+                    </button>
+                    <!-- Menú Móvil Botón -->
+                    <button id="mobileMenuBtn" class="lg:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buscador Desplegable en Tiempo Real -->
+        <div id="searchDropdown" class="hidden border-t border-slate-200 bg-white px-4 py-3 shadow-inner">
+            <div class="max-w-4xl mx-auto flex items-center gap-3">
+                <i class="fa-solid fa-search text-sena-green text-lg"></i>
+                <input id="searchInput" type="text" placeholder="Buscar por concepto: 'Aprender a Hacer', 'Normas', 'Horas', 'Transversales', 'TG', etc..." class="w-full bg-transparent border-none focus:outline-none text-slate-800 placeholder-slate-400 text-sm">
+                <button onclick="toggleSearchBar()" class="text-xs text-slate-400 hover:text-slate-600 font-semibold px-2 py-1">Cerrar [ESC]</button>
+            </div>
+            <div id="searchResults" class="max-w-4xl mx-auto mt-2 max-h-56 overflow-y-auto divide-y divide-slate-100 text-sm hidden">
+                <!-- Se llena dinámicamente con JS -->
+            </div>
+        </div>
+
+        <!-- Menú Móvil -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-2">
+            <a href="#fundamentos" class="block py-2 text-slate-700 hover:text-sena-green font-medium">1. Fundamentos FPI</a>
+            <a href="#dimensiones" class="block py-2 text-slate-700 hover:text-sena-green font-medium">2. Pilares de Aprendizaje</a>
+            <a href="#niveles" class="block py-2 text-slate-700 hover:text-sena-green font-medium">3. Niveles y Duración (Res. 2198)</a>
+            <a href="#enfoque" class="block py-2 text-slate-700 hover:text-sena-green font-medium">4. Enfoque por Competencias</a>
+            <a href="#taxonomia" class="block py-2 text-slate-700 hover:text-sena-green font-medium">5. Taxonomía de Competencias</a>
+            <a href="#pedagogia" class="block py-2 text-slate-700 hover:text-sena-green font-medium">6. Contexto Pedagógico</a>
+            <a href="#perfiles" class="block py-2 text-slate-700 hover:text-sena-green font-medium">7. Perfil Aprendiz & Egresado</a>
+            <a href="#evaluacion" class="block py-2 text-sena-orange font-bold">8. Test de Autoevaluación</a>
+            <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                <button onclick="openModal('downloadModal')" class="w-full bg-sena-green text-white py-2.5 rounded-lg font-medium text-center">
+                    <i class="fa-solid fa-download mr-1"></i> Descargas y Recursos
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header id="hero" class="relative overflow-hidden bg-gradient-to-br from-sena-navy via-[#053d5c] to-[#01253a] text-white pt-16 pb-24">
+        <!-- Decoraciones SVG de fondo -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <circle cx="85" cy="20" r="30" fill="#39A900" />
+                <circle cx="10" cy="80" r="40" fill="#ffffff" />
+            </svg>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-sena-green border border-white/20 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-6">
+                    <i class="fa-solid fa-graduation-cap"></i> Marco Curricular y Pedagógico Institucional
+                </div>
+                <h1 class="font-heading font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight leading-tight">
+                    Formación Profesional Integral <br>
+                    <span class="text-sena-green">Enfoque por Competencias</span>
+                </h1>
+                <p class="mt-6 text-base sm:text-lg text-slate-200 font-light leading-relaxed">
+                    Guía de estudio interactiva basada en el marco formativo del SENA, la <strong class="text-white font-medium">Resolución 2198 de 2019</strong> y el <strong class="text-white font-medium">PEI institucional</strong>. Descubre la articulación armónica entre el mundo de la vida y el mundo del trabajo productivo.
+                </p>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                    <a href="#fundamentos" class="bg-sena-green hover:bg-sena-darkGreen text-white font-semibold px-6 py-3 rounded-xl shadow-lg shadow-sena-green/30 transition-all flex items-center gap-2">
+                        <span>Iniciar Recorrido</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <button onclick="openModal('downloadModal')" class="bg-white/10 hover:bg-white/20 text-white font-medium px-5 py-3 rounded-xl backdrop-blur-sm border border-white/20 transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-file-arrow-down text-sena-orange"></i>
+                        <span>Centro de Descargas</span>
+                    </button>
+                    <a href="#evaluacion" class="bg-transparent hover:bg-white/10 text-slate-200 font-medium px-4 py-3 rounded-xl transition-all flex items-center gap-2">
+                        <i class="fa-solid fa-check-double text-sena-green"></i>
+                        <span>Autoevaluación</span>
+                    </a>
+                </div>
+
+                <!-- Métricas destacadas del documento -->
+                <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-white/15">
+                    <div>
+                        <span class="block text-2xl font-bold font-heading text-sena-green">100%</span>
+                        <span class="text-xs text-slate-300">Teórico - Práctico</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold font-heading text-sena-orange">Hacer</span>
+                        <span class="text-xs text-slate-300">Eje articulador clave</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold font-heading text-white">3 Tipos</span>
+                        <span class="text-xs text-slate-300">Taxonomía competencias</span>
+                    </div>
+                    <div>
+                        <span class="block text-2xl font-bold font-heading text-sena-green">Res. 2198</span>
+                        <span class="text-xs text-slate-300">Norma de horas & créditos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CUERPO PRINCIPAL -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- 1. FUNDAMENTOS DE LA FPI -->
+        <section id="fundamentos" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-book-bookmark"></i> Capítulo 1 &bull; Fundamentación
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">¿Qué es la Formación Profesional Integral (FPI)?</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                Proceso educativo teórico-práctico de carácter permanente, orientado al desarrollo integral de conocimientos técnicos, tecnológicos, actitudes y valores éticos para la convivencia social.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <!-- Concepto central -->
+                <div class="bg-white p-7 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-sena-green/10 text-sena-green flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-shapes"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-sena-navy">Naturaleza Teórico - Práctica</h3>
+                    <p class="text-slate-600 mt-3 text-sm leading-relaxed">
+                        Constituye un proceso que vincula de manera indisoluble el conocimiento a la operación. Solo una formación fundamentada en <strong>conocimientos científicos y tecnológicos</strong> permite la comprensión de la dinámica productiva y promueve la movilidad y el progreso social del trabajador.
+                    </p>
+                    <div class="mt-4 p-3.5 bg-slate-50 rounded-xl border border-slate-100 text-xs text-slate-700">
+                        <i class="fa-solid fa-quote-left text-sena-green mr-1"></i>
+                        Manejar el concepto como categoría que posibilita la <em>comprensión, la explicación y la transformación</em>.
+                    </div>
+                </div>
+
+                <!-- Los Dos Mundos -->
+                <div class="bg-white p-7 rounded-2xl shadow-sm border border-slate-200/80 hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 rounded-xl bg-sena-navy/10 text-sena-navy flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-earth-americas"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-sena-navy">Los Dos Escenarios de Acción</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+                        <div class="border border-emerald-100 bg-emerald-50/50 p-4 rounded-xl">
+                            <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-emerald-800 bg-emerald-100 rounded-full mb-1">Ámbito Productivo</span>
+                            <h4 class="font-bold text-sena-navy text-sm">Mundo del Trabajo</h4>
+                            <p class="text-xs text-slate-600 mt-1">Actividad productiva laboral, niveles tecnológicos, desarrollo empresarial, empleo formal e independiente.</p>
+                        </div>
+                        <div class="border border-sky-100 bg-sky-50/50 p-4 rounded-xl">
+                            <span class="inline-block px-2.5 py-0.5 text-[11px] font-bold text-sky-800 bg-sky-100 rounded-full mb-1">Dimensión Humana</span>
+                            <h4 class="font-bold text-sena-navy text-sm">Mundo de la Vida</h4>
+                            <p class="text-xs text-slate-600 mt-1">Construcción individual, comunitaria, ciudadana, valores éticos y convivencia solidaria armónica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. PILARES: CÓMO SE APRENDE -->
+        <section id="dimensiones" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-cubes-stacked"></i> Capítulo 2 &bull; Aprendizaje en el SENA
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">¿Cómo se aprende en calidad de Aprendiz?</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                El modelo formativo articula las tres dimensiones clásicas del aprendizaje continuo, priorizando la capacidad de transformar los contextos reales.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mt-8">
+                <!-- Aprender a Aprender -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden group hover:border-sena-green transition-all">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-bl-full pointer-events-none"></div>
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4 font-bold">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-sena-navy">Aprender a Aprender</h3>
+                    <p class="text-xs uppercase font-semibold text-blue-600 tracking-wider mt-1">Cognitivo / Procesual</p>
+                    <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                        Se orienta hacia el desarrollo de la originalidad, la creatividad, la capacidad crítica, el aprendizaje permanente por procesos y la continua autogestión del conocimiento ante los cambios técnicos.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-500"></i> Autonomía intelectual</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-500"></i> Pensamiento crítico</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-500"></i> Gestión de la información</li>
+                    </ul>
+                </div>
+
+                <!-- Aprender a Hacer (EJE) -->
+                <div class="bg-white rounded-2xl p-6 border-2 border-sena-green shadow-md relative overflow-hidden group">
+                    <div class="absolute -top-3 right-4 bg-sena-green text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                        Eje Central de la FPI
+                    </div>
+                    <div class="w-12 h-12 rounded-xl bg-sena-green/10 text-sena-green flex items-center justify-center text-xl mb-4 font-bold">
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-sena-navy">Aprender a Hacer</h3>
+                    <p class="text-xs uppercase font-semibold text-sena-green tracking-wider mt-1">Ciencia, Técnica y Tecnología</p>
+                    <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                        Involucra el uso riguroso de la técnica y la tecnología en función de un adecuado desempeño productivo. Es la transformación intencional del entorno físico y social mediante destrezas aplicadas.
+                    </p>
+                    <div class="mt-4 p-2.5 bg-emerald-50 rounded-lg text-xs font-medium text-emerald-900 border border-emerald-200/60">
+                        Dada la naturaleza de la FPI, el eje primordial de formación institucional es el <strong>Aprender a Hacer</strong>.
+                    </div>
+                </div>
+
+                <!-- Aprender a Ser -->
+                <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm relative overflow-hidden group hover:border-sena-orange transition-all">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-bl-full pointer-events-none"></div>
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 text-sena-orange flex items-center justify-center text-xl mb-4 font-bold">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-lg text-sena-navy">Aprender a Ser</h3>
+                    <p class="text-xs uppercase font-semibold text-sena-orange tracking-wider mt-1">Valorativo / Actitudinal</p>
+                    <p class="text-slate-600 text-sm mt-3 leading-relaxed">
+                        Se orienta al desarrollo de actitudes acordes con la dignidad incondicional de la persona humana, principios éticos y con su proyección solidaria, empática e incluyente hacia la comunidad y el planeta.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-slate-500">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sena-orange"></i> Convivencia democrática</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sena-orange"></i> Trabajo colaborativo</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-sena-orange"></i> Responsabilidad social y ecológica</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. NIVELES, HORAS Y CRÉDITOS (RESOLUCIÓN 2198 DE 2019) -->
+        <section id="niveles" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-table-list"></i> Capítulo 3 &bull; Estructura Curricular
+            </div>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">Niveles, Modalidades y Duración de la FPI</h2>
+                    <p class="text-slate-600 mt-2 max-w-2xl">
+                        Datos oficiales según la <strong>Resolución 2198 del 13 de diciembre de 2019</strong>. Explora la distribución de créditos, horas lectivas y prácticas según el nivel del programa.
+                    </p>
+                </div>
+                <!-- Selector de Modalidad -->
+                <div class="flex items-center bg-slate-200 p-1 rounded-xl text-xs font-semibold">
+                    <span class="px-3 py-1.5 bg-white text-sena-navy rounded-lg shadow-sm">Presencial</span>
+                    <span class="px-3 py-1.5 text-slate-600">Virtual</span>
+                    <span class="px-3 py-1.5 text-slate-600">A distancia</span>
+                </div>
+            </div>
+
+            <!-- Tabla Interactiva -->
+            <div class="mt-6 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-sena-navy text-white text-xs uppercase tracking-wider">
+                                <th class="p-4 font-semibold">Nivel de Formación Profesional</th>
+                                <th class="p-4 text-center font-semibold bg-sena-lightNavy">Créditos Mínimos</th>
+                                <th class="p-4 text-center font-semibold bg-sena-lightNavy">Horas Totales Mín.</th>
+                                <th class="p-4 text-center font-semibold">Créditos Lectiva</th>
+                                <th class="p-4 text-center font-semibold">Horas Lectivas Mín.</th>
+                                <th class="p-4 text-center font-semibold bg-emerald-900/60">Créditos Productiva</th>
+                                <th class="p-4 text-center font-semibold bg-emerald-900/60">Horas Productivas Mín.</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 font-medium">
+                            <!-- Fila Tecnólogo -->
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-emerald-100 text-sena-green font-bold flex items-center justify-center text-xs">TG</div>
+                                        <div>
+                                            <span class="font-bold text-slate-900 block">Tecnología</span>
+                                            <span class="text-xs text-slate-500">Nivel Tecnológico Superior</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">83</td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">3.984 h</td>
+                                <td class="p-4 text-center text-slate-700">65</td>
+                                <td class="p-4 text-center text-slate-700">3.120 h</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">18</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">864 h</td>
+                            </tr>
+
+                            <!-- Fila Técnico Laboral -->
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-xs">TL</div>
+                                        <div>
+                                            <span class="font-bold text-slate-900 block">Técnico Laboral</span>
+                                            <span class="text-xs text-slate-500">Cualificación Operativa y Técnica</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">30</td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">1.440 h</td>
+                                <td class="p-4 text-center text-slate-700">16</td>
+                                <td class="p-4 text-center text-slate-700">768 h</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">14</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">672 h</td>
+                            </tr>
+
+                            <!-- Fila Auxiliar y Operario -->
+                            <tr class="hover:bg-slate-50/80 transition-colors">
+                                <td class="p-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-xs">AU/OP</div>
+                                        <div>
+                                            <span class="font-bold text-slate-900 block">Auxiliar / Operario</span>
+                                            <span class="text-xs text-slate-500">Habilidades Básicas y Ocupacionales</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">16</td>
+                                <td class="p-4 text-center font-bold text-sena-navy bg-slate-50/50">768 h</td>
+                                <td class="p-4 text-center text-slate-700">11</td>
+                                <td class="p-4 text-center text-slate-700">528 h</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">5</td>
+                                <td class="p-4 text-center font-bold text-sena-green bg-emerald-50/30">240 h</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 bg-slate-50 border-t border-slate-200 text-xs text-slate-600 flex flex-wrap justify-between items-center gap-2">
+                    <span><strong>Fuente:</strong> SENA, Resolución 2198 del 13 de diciembre de 2019 &bull; Formato DE-F-025 V.04</span>
+                    <button onclick="downloadCSVTable()" class="text-sena-green hover:underline font-semibold flex items-center gap-1">
+                        <i class="fa-solid fa-file-csv"></i> Descargar datos en CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calculadora rápida de Horas y Créditos FPI -->
+            <div class="mt-6 p-6 bg-slate-100 rounded-2xl border border-slate-200">
+                <h3 class="font-bold text-sm text-sena-navy uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-calculator text-sena-green"></i> Simulador Rápido de Equivalencias SENA
+                </h3>
+                <p class="text-xs text-slate-600 mt-1">Selecciona el nivel para verificar la distribución porcentual entre etapa lectiva y etapa productiva:</p>
+                
+                <div class="grid sm:grid-cols-3 gap-3 mt-4">
+                    <button onclick="setSimLevel('TG')" class="sim-btn p-3 bg-white hover:border-sena-green border-2 border-transparent rounded-xl text-left transition-all active-sim shadow-sm">
+                        <span class="block font-bold text-slate-800 text-sm">Tecnología (TG)</span>
+                        <span class="text-xs text-slate-500">3.984 h (78.3% Lectiva / 21.7% Productiva)</span>
+                    </button>
+                    <button onclick="setSimLevel('TL')" class="sim-btn p-3 bg-white hover:border-sena-green border-2 border-transparent rounded-xl text-left transition-all shadow-sm">
+                        <span class="block font-bold text-slate-800 text-sm">Técnico Laboral (TL)</span>
+                        <span class="text-xs text-slate-500">1.440 h (53.3% Lectiva / 46.7% Productiva)</span>
+                    </button>
+                    <button onclick="setSimLevel('AU')" class="sim-btn p-3 bg-white hover:border-sena-green border-2 border-transparent rounded-xl text-left transition-all shadow-sm">
+                        <span class="block font-bold text-slate-800 text-sm">Auxiliar / Operario (AU/OP)</span>
+                        <span class="text-xs text-slate-500">768 h (68.7% Lectiva / 31.3% Productiva)</span>
+                    </button>
+                </div>
+
+                <div id="simResult" class="mt-4 p-4 bg-white rounded-xl border border-slate-200 text-xs flex flex-wrap items-center justify-between gap-4">
+                    <!-- Dinámico con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. ENFOQUE PARA EL DESARROLLO DE COMPETENCIAS -->
+        <section id="enfoque" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-compass"></i> Capítulo 4 &bull; Modelo Pedagógico
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">Enfoque para el Desarrollo de Competencias</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                Propuesta formativa fundamentada en una perspectiva <strong class="text-sena-navy">humanista - cognitiva</strong>, sistemática, flexible y permanente, presente en la tríada de <strong class="text-sena-green">Enseñanza - Aprendizaje - Evaluación</strong>.
+            </p>
+
+            <div class="grid lg:grid-cols-3 gap-6 mt-8">
+                <!-- Columna 1: Núcleo Humanista -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-100 text-sena-green flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-user-astronaut"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-base text-sena-navy">Desarrollo Humano Integral</h3>
+                    <p class="text-slate-600 text-xs mt-2 leading-relaxed">
+                        Su punto de partida es el <strong>Proyecto de Vida personal</strong> del Aprendiz. Busca articular lo tecnológico y lo social mediante procesos cognitivos, procedimentales y valorativo-actitudinales.
+                    </p>
+                </div>
+
+                <!-- Columna 2: Competencia Laboral (Def. 2005) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-briefcase"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-base text-sena-navy">Competencia Laboral (2005, p.11)</h3>
+                    <p class="text-slate-600 text-xs mt-2 leading-relaxed">
+                        <em>"Capacidad de una persona para desempeñar funciones productivas en contextos variables, con base en los estándares de calidad establecidos por el sector productivo."</em>
+                    </p>
+                </div>
+
+                <!-- Columna 3: Normas de Competencia -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="w-10 h-10 rounded-lg bg-orange-100 text-sena-orange flex items-center justify-center text-lg mb-3">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-base text-sena-navy">Mesas Sectoriales & Normas</h3>
+                    <p class="text-slate-600 text-xs mt-2 leading-relaxed">
+                        La <strong>Norma de Competencia Laboral (NCL)</strong> es el referente primario para el diseño curricular, creada por empresarios y gremios para responder con calidad y pertinencia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Gráfico conceptual de los 3 aspectos de la competencia -->
+            <div class="mt-6 bg-gradient-to-r from-sena-navy to-slate-800 text-white p-6 rounded-2xl">
+                <h3 class="font-heading font-bold text-lg mb-2">Estructura Tripartita de la Competencia en el SENA</h3>
+                <div class="grid sm:grid-cols-3 gap-4 mt-4 text-xs">
+                    <div class="bg-white/10 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-sena-green font-bold block mb-1">1. Aprender a Ser</span>
+                        <p class="text-slate-200">Fortalecimiento de las dimensiones humanas como ciudadano ético y trabajador autónomo.</p>
+                    </div>
+                    <div class="bg-white/10 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-sena-green font-bold block mb-1">2. Aprender a Aprender</span>
+                        <p class="text-slate-200">Construcción activa del conocimiento, autogestión, trabajo en equipo y adaptabilidad continua.</p>
+                    </div>
+                    <div class="bg-white/10 p-3.5 rounded-xl border border-white/10">
+                        <span class="text-sena-green font-bold block mb-1">3. Aprender a Hacer</span>
+                        <p class="text-slate-200">El trabajo como escenario propicio para el desempeño real y la transformación intencional del entorno.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TAXONOMÍA DE COMPETENCIAS SENA -->
+        <section id="taxonomia" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-sitemap"></i> Capítulo 5 &bull; Clasificación Oficial
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">Taxonomía de Competencias Institucionales</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                El SENA clasifica las competencias en su diseño curricular en tres grandes categorías para garantizar pertinencia operativa y desarrollo humano superior.
+            </p>
+
+            <div class="mt-8 grid md:grid-cols-3 gap-6">
+                <!-- Específicas -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-sena-green transition-all shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold bg-emerald-50 text-sena-green rounded-md">Técnico - Tecnológicas</span>
+                        <i class="fa-solid fa-gears text-sena-green text-xl"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-sena-navy">Competencias Específicas</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Identifican el desempeño del aprendiz en una función productiva particular de una ocupación o conjunto de ocupaciones según la Clasificación Nacional de Ocupaciones (C.N.O.).
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <span class="text-[11px] font-semibold text-slate-400 block mb-1">Ejemplos de Redes de Conocimiento:</span>
+                        <div class="flex flex-wrap gap-1">
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Gestión Financiera</span>
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Construcción</span>
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">Automatización</span>
+                            <span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">TIC y Software</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Transversales -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-blue-500 transition-all shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold bg-blue-50 text-blue-600 rounded-md">Interacción y Organización</span>
+                        <i class="fa-solid fa-arrows-split-up-and-left text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-sena-navy">Competencias Transversales</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Atraviesan todas las ocupaciones de la C.N.O. y estructuras de programas formativos. No se limitan a una disciplina aislada; son flexibles y de alto nivel de transferibilidad social.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-slate-600">
+                        <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-blue-500 mt-0.5 text-[10px]"></i> <span><strong>Carácter generativo y abierto:</strong> Aprendizaje permanente e inacabado.</span></li>
+                        <li class="flex items-start gap-1.5"><i class="fa-solid fa-circle-check text-blue-500 mt-0.5 text-[10px]"></i> <span><strong>Ética y convivencia:</strong> Comportamientos éticos, bienestar común y orden superior.</span></li>
+                    </ul>
+                </div>
+
+                <!-- Clave -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 hover:border-sena-orange transition-all shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="px-2.5 py-1 text-xs font-bold bg-orange-50 text-sena-orange rounded-md">Fundamentales</span>
+                        <i class="fa-solid fa-key text-sena-orange text-xl"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-xl text-sena-navy">Competencias Clave</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Capacidades indispensables para el aprendizaje y desarrollo individual a lo largo de toda la vida. Son la base cognitiva universal para asimilar nuevos conocimientos.
+                    </p>
+                    <div class="mt-4 pt-3 border-t border-slate-100">
+                        <span class="text-[11px] font-semibold text-slate-400 block mb-1">Áreas determinantes:</span>
+                        <div class="space-y-1 text-xs text-slate-700">
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-calculator text-sena-orange text-xs"></i> Razonamiento Matemático</div>
+                            <div class="flex items-center gap-2"><i class="fa-solid fa-book-open text-sena-orange text-xs"></i> Lectura Crítica y Escritura</div>
+                            <div class="fa-solid fa-comments text-sena-orange text-xs mr-2"></div> Comunicación oral (lengua materna y extranjera)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTEXTO PEDAGÓGICO Y METODOLOGÍA -->
+        <section id="pedagogia" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-diagram-project"></i> Capítulo 6 &bull; Estrategia Institucional
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">El Contexto Pedagógico de la FPI</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                El SENA fundamenta su acción docente en el <strong>Socioconstructivismo</strong> y el <strong>Aprendizaje por Proyectos</strong> como eje vertebrador.
+            </p>
+
+            <div class="mt-8 grid md:grid-cols-2 gap-8 items-center">
+                <div class="space-y-4">
+                    <div class="p-5 bg-white rounded-2xl border-l-4 border-sena-green shadow-sm">
+                        <h3 class="font-bold text-sena-navy text-base flex items-center gap-2">
+                            <i class="fa-solid fa-folder-tree text-sena-green"></i> Aprendizaje por Proyectos
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Eje vertebrador en cuya esencia subyace la enseñanza y el <strong>aprendizaje problémico</strong>. Sitúa al aprendiz frente a desafíos reales del sector empresarial y comunitario.
+                        </p>
+                    </div>
+
+                    <div class="p-5 bg-white rounded-2xl border-l-4 border-blue-500 shadow-sm">
+                        <h3 class="font-bold text-sena-navy text-base flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-blue-500"></i> Aprendizaje Problémico y Activo
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            Asegura un alto grado de aproximación a la realidad productiva. Promueve la investigación, la autonomía, el pensamiento crítico, la integración interdisciplinaria y la concepción científica del mundo.
+                        </p>
+                    </div>
+
+                    <div class="p-5 bg-white rounded-2xl border-l-4 border-sena-navy shadow-sm">
+                        <h3 class="font-bold text-sena-navy text-base flex items-center gap-2">
+                            <i class="fa-solid fa-people-arrows text-sena-navy"></i> Marco Socioconstructivista
+                        </h3>
+                        <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                            El conocimiento se consolida mediante la interacción social colaborativa, el diálogo con pares e instructores y la transformación tangible del contexto biofísico.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Resumen interactivo de Ventajas Didácticas -->
+                <div class="bg-gradient-to-br from-slate-900 to-sena-navy p-7 rounded-2xl text-white shadow-xl">
+                    <h3 class="font-heading font-bold text-xl text-sena-green flex items-center gap-2">
+                        <i class="fa-solid fa-trophy"></i> Impacto en los Aprendices
+                    </h3>
+                    <p class="text-xs text-slate-300 mt-2">Beneficios del modelo pedagógico activo del SENA:</p>
+                    
+                    <div class="mt-4 grid grid-cols-2 gap-3 text-xs">
+                        <div class="bg-white/10 p-3 rounded-xl">
+                            <i class="fa-solid fa-compass text-sena-orange mb-1"></i>
+                            <h4 class="font-bold">Autonomía y Decisión</h4>
+                            <p class="text-[11px] text-slate-300">Capacidad para autogestionar y regular el aprendizaje propio.</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-xl">
+                            <i class="fa-solid fa-flask text-sena-green mb-1"></i>
+                            <h4 class="font-bold">Espíritu Investigativo</h4>
+                            <p class="text-[11px] text-slate-300">Gestión de la información y rigor técnico en la solución de problemas.</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-xl">
+                            <i class="fa-solid fa-users text-blue-400 mb-1"></i>
+                            <h4 class="font-bold">Trabajo Colaborativo</h4>
+                            <p class="text-[11px] text-slate-300">Negociación de significados y solución comunitaria solidaria.</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-xl">
+                            <i class="fa-solid fa-chart-line text-emerald-400 mb-1"></i>
+                            <h4 class="font-bold">Desarrollo Moral</h4>
+                            <p class="text-[11px] text-slate-300">Compromiso ético con la sociedad, la equidad y el medio ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. PERFIL DEL APRENDIZ Y DEL EGRESADO -->
+        <section id="perfiles" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-green text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-id-card"></i> Capítulo 7 &bull; Transformación Humana
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">Perfiles Institucionales</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                Cualidades éticas, profesionales y sociales que caracterizan a los protagonistas de la formación profesional integral.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mt-8">
+                <!-- Perfil del Aprendiz -->
+                <div class="bg-white p-7 rounded-2xl border-2 border-emerald-500/30 shadow-sm relative">
+                    <div class="w-12 h-12 rounded-xl bg-sena-green text-white flex items-center justify-center text-xl mb-4 shadow">
+                        <i class="fa-solid fa-user-gear"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-sena-navy">Perfil del Aprendiz SENA</h3>
+                    <p class="text-xs text-sena-green font-bold uppercase tracking-wider mt-1">Sujeto Activo y Comprometido</p>
+                    
+                    <p class="text-slate-600 text-sm mt-4 leading-relaxed">
+                        El aprendiz posee un <strong>carácter activo</strong> y actitudes proactivas frente a su proceso de formación. Es responsable, perseverante y autodisciplinado.
+                    </p>
+
+                    <div class="mt-4 space-y-2 text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-green text-sm"></i>
+                            <span><strong>Autonomía y espíritu crítico:</strong> No es un receptor pasivo, indaga y propone.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-green text-sm"></i>
+                            <span><strong>Aprendizaje con pares:</strong> Trabaja en equipo y co-evalúa desempeños.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-green text-sm"></i>
+                            <span><strong>Autorregulación:</strong> Reflexiona constantemente sobre sus propios logros y oportunidades de mejora.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Perfil del Egresado -->
+                <div class="bg-white p-7 rounded-2xl border-2 border-sena-navy/30 shadow-sm relative">
+                    <div class="w-12 h-12 rounded-xl bg-sena-navy text-white flex items-center justify-center text-xl mb-4 shadow">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-sena-navy">Perfil del Egresado SENA</h3>
+                    <p class="text-xs text-sena-navy font-bold uppercase tracking-wider mt-1">Líder Técnico, Social y Ciudadano</p>
+                    
+                    <p class="text-slate-600 text-sm mt-4 leading-relaxed">
+                        Desarrolla capacidades técnicas, intelectuales, sociales y cívicas que le permiten desempeñarse de manera productiva, transformando su entorno con ética, sostenibilidad y democracia.
+                    </p>
+
+                    <div class="mt-4 space-y-2 text-xs text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-navy text-sm"></i>
+                            <span><strong>Comprensión crítica:</strong> Entiende los procesos sociales y económicos del país.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-navy text-sm"></i>
+                            <span><strong>Responsabilidad integral:</strong> Compromiso ético frente a sí mismo, la empresa y la comunidad.</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fa-solid fa-check-circle text-sena-navy text-sm"></i>
+                            <span><strong>Conciencia ambiental y cívica:</strong> Enmarcado en la Constitución y las Leyes de Colombia.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. AUTOEVALUACIÓN / QUIZ INTERACTIVO -->
+        <section id="evaluacion" class="scroll-mt-20">
+            <div class="flex items-center gap-2 text-sena-orange text-sm font-bold uppercase tracking-wider mb-2">
+                <i class="fa-solid fa-clipboard-question"></i> Capítulo 8 &bull; Comprobación de Conocimientos
+            </div>
+            <h2 class="font-heading text-3xl font-bold text-sena-navy tracking-tight">Quiz de Afianzamiento FPI</h2>
+            <p class="text-slate-600 mt-2 max-w-3xl">
+                Valida tus conocimientos sobre los lineamientos institucionales del documento oficial SENA y la Resolución 2198 de 2019.
+            </p>
+
+            <div class="mt-8 bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm max-w-3xl mx-auto">
+                <div id="quizContainer">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-6 text-xs text-slate-500 font-semibold">
+                        <span id="quizStepText">Pregunta 1 de 5</span>
+                        <span id="quizScoreText">Aciertos: 0</span>
+                    </div>
+
+                    <!-- Contenedor de la Pregunta -->
+                    <div id="quizBody">
+                        <!-- Generado por JavaScript -->
+                    </div>
+
+                    <!-- Mensaje de retroalimentación -->
+                    <div id="quizFeedback" class="hidden mt-4 p-4 rounded-xl text-xs font-medium"></div>
+
+                    <!-- Controles del Quiz -->
+                    <div class="mt-6 flex justify-between items-center pt-4 border-t border-slate-100">
+                        <button id="btnPrevQuiz" onclick="prevQuizQuestion()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg text-xs font-semibold disabled:opacity-40 transition-all">
+                            <i class="fa-solid fa-chevron-left mr-1"></i> Anterior
+                        </button>
+                        <button id="btnNextQuiz" onclick="nextQuizQuestion()" class="px-5 py-2.5 bg-sena-green hover:bg-sena-darkGreen text-white rounded-lg text-xs font-bold transition-all flex items-center gap-1.5">
+                            Siguiente <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resultado Final -->
+                <div id="quizSummary" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-emerald-100 text-sena-green rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <h3 class="font-heading font-bold text-2xl text-sena-navy">¡Evaluación Finalizada!</h3>
+                    <p id="summaryScore" class="text-sm text-slate-600 mt-2">Has obtenido X de 5 respuestas correctas.</p>
+                    <div class="mt-6 flex justify-center gap-3">
+                        <button onclick="restartQuiz()" class="px-5 py-2.5 bg-sena-navy hover:bg-slate-800 text-white rounded-xl text-xs font-bold">
+                            <i class="fa-solid fa-rotate-right mr-1"></i> Reintentar
+                        </button>
+                        <button onclick="openModal('downloadModal')" class="px-5 py-2.5 bg-sena-green hover:bg-sena-darkGreen text-white rounded-xl text-xs font-bold">
+                            <i class="fa-solid fa-download mr-1"></i> Descargar Resumen
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-sena-navy text-white mt-20 border-t border-sena-green/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-3">
+                        <div class="w-8 h-8 rounded-lg bg-sena-green text-white flex items-center justify-center font-bold text-base">S</div>
+                        <span class="font-heading font-bold text-lg">SENA &bull; Formación Profesional Integral</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed max-w-md">
+                        Plataforma pedagógica de divulgación basada en el PEI SENA, documento institucional <strong>DE-F-025 V.04</strong> y la <strong>Resolución 2198 de 2019</strong>. Todos los derechos formativos pertenecen al Servicio Nacional de Aprendizaje.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-sena-green mb-3">Secciones</h4>
+                    <ul class="space-y-1.5 text-xs text-slate-300">
+                        <li><a href="#fundamentos" class="hover:underline">1. Fundamentos FPI</a></li>
+                        <li><a href="#dimensiones" class="hover:underline">2. Aprender a Hacer/Ser/Aprender</a></li>
+                        <li><a href="#niveles" class="hover:underline">3. Niveles (Res. 2198)</a></li>
+                        <li><a href="#taxonomia" class="hover:underline">4. Taxonomía de Competencias</a></li>
+                        <li><a href="#pedagogia" class="hover:underline">5. Aprendizaje por Proyectos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-sena-green mb-3">Recursos & Descargas</h4>
+                    <ul class="space-y-2 text-xs text-slate-300">
+                        <li>
+                            <button onclick="downloadMarkdownSummary()" class="hover:text-white flex items-center gap-1.5 text-left">
+                                <i class="fa-solid fa-file-code text-sena-green"></i> Resumen en Markdown (.md)
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="downloadTextSummary()" class="hover:text-white flex items-center gap-1.5 text-left">
+                                <i class="fa-solid fa-file-lines text-blue-400"></i> Resumen en Texto Plano (.txt)
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="downloadSourceCode()" class="hover:text-white flex items-center gap-1.5 text-left">
+                                <i class="fa-solid fa-code text-sena-orange"></i> Descargar Sitio Web (.html)
+                            </button>
+                        </li>
+                        <li>
+                            <button onclick="window.print()" class="hover:text-white flex items-center gap-1.5 text-left">
+                                <i class="fa-solid fa-print text-emerald-400"></i> Imprimir o Guardar PDF
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-white/10 text-center md:flex md:justify-between text-xs text-slate-400">
+                <p>&copy; 2026 Servicio Nacional de Aprendizaje SENA &bull; Colombia</p>
+                <p class="mt-2 md:mt-0">Diseño pedagógico accesible para aprendices e instructores</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- BOTÓN VOLVER ARRIBA -->
+    <button id="btn-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="hidden fixed bottom-6 right-6 w-11 h-11 bg-sena-green hover:bg-sena-darkGreen text-white rounded-full shadow-lg items-center justify-center text-sm z-30 transition-all no-print">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- MODAL DE DESCARGAS DE ARCHIVOS -->
+    <div id="downloadModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all animate-in fade-in zoom-in-95">
+            <!-- Header Modal -->
+            <div class="bg-sena-navy p-6 text-white flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-sena-green flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-cloud-arrow-down"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading font-bold text-lg">Centro de Descargas SENA</h3>
+                        <p class="text-xs text-slate-300">Descarga los materiales del sitio web directamente</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('downloadModal')" class="text-slate-400 hover:text-white text-xl p-1.5">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Contenido Modal -->
+            <div class="p-6 space-y-4">
+                <p class="text-xs text-slate-600">
+                    Elige el formato de archivo que deseas exportar a tu dispositivo para el estudio autónomo o uso en ambientes formativos:
+                </p>
+
+                <!-- Tarjeta 1: Markdown -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100/80 rounded-2xl border border-slate-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center text-lg">
+                            <i class="fa-brands fa-markdown"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-sena-navy">Guía de Estudio en Markdown</h4>
+                            <span class="text-[11px] text-slate-500">Documento estructurado con tablas (.md)</span>
+                        </div>
+                    </div>
+                    <button onclick="downloadMarkdownSummary()" class="px-4 py-2 bg-sena-green hover:bg-sena-darkGreen text-white text-xs font-bold rounded-lg shadow-sm transition-all">
+                        Descargar .md
+                    </button>
+                </div>
+
+                <!-- Tarjeta 2: Texto Plano -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100/80 rounded-2xl border border-slate-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-file-lines"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-sena-navy">Resumen en Texto Plano</h4>
+                            <span class="text-[11px] text-slate-500">Lectura universal sin formato (.txt)</span>
+                        </div>
+                    </div>
+                    <button onclick="downloadTextSummary()" class="px-4 py-2 bg-sena-navy hover:bg-slate-800 text-white text-xs font-bold rounded-lg shadow-sm transition-all">
+                        Descargar .txt
+                    </button>
+                </div>
+
+                <!-- Tarjeta 3: Código Fuente Completo del Sitio -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100/80 rounded-2xl border border-slate-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-orange-100 text-sena-orange flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-sena-navy">Código Fuente del Sitio Web</h4>
+                            <span class="text-[11px] text-slate-500">Archivo autónomo listo para abrir (.html)</span>
+                        </div>
+                    </div>
+                    <button onclick="downloadSourceCode()" class="px-4 py-2 bg-sena-orange hover:bg-orange-700 text-white text-xs font-bold rounded-lg shadow-sm transition-all">
+                        Descargar .html
+                    </button>
+                </div>
+
+                <!-- Tarjeta 4: Guardar como PDF -->
+                <div class="flex items-center justify-between p-4 bg-slate-50 hover:bg-slate-100/80 rounded-2xl border border-slate-200 transition-colors">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-red-100 text-red-700 flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-file-pdf"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-sm text-sena-navy">Imprimir o Guardar en PDF</h4>
+                            <span class="text-[11px] text-slate-500">Formato maquetado para impresión limpia</span>
+                        </div>
+                    </div>
+                    <button onclick="window.print()" class="px-4 py-2 bg-slate-700 hover:bg-slate-900 text-white text-xs font-bold rounded-lg shadow-sm transition-all">
+                        Generar PDF
+                    </button>
+                </div>
+            </div>
+
+            <!-- Footer Modal -->
+            <div class="bg-slate-50 p-4 border-t border-slate-200 text-right">
+                <button onclick="closeModal('downloadModal')" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition-colors">
+                    Cerrar Ventana
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT DE LÓGICA E INTERACCIÓN -->
+    <script>
+        // DATOS DEL QUIZ INTERACTIVO
+        const quizQuestions = [
+            {
+                q: "¿Cuál es considerado el eje fundamental y vertebral de la Formación Profesional Integral (FPI) en el SENA?",
+                options: [
+                    "Aprender a Ser",
+                    "Aprender a Hacer",
+                    "Aprender a Aprender",
+                    "Aprender a Convivir"
+                ],
+                correct: 1,
+                explanation: "Correcto: Por la naturaleza técnico-práctica de la FPI, el eje central e ineludible de la misma es el 'Aprender a Hacer'."
+            },
+            {
+                q: "Según la Resolución 2198 de 2019, ¿cuántas horas totales mínimas y créditos exige el nivel de Tecnología (TG)?",
+                options: [
+                    "1.440 horas y 30 créditos",
+                    "768 horas y 16 créditos",
+                    "3.984 horas y 83 créditos",
+                    "2.200 horas y 50 créditos"
+                ],
+                correct: 2,
+                explanation: "Exacto: El nivel de Tecnología exige 83 créditos mínimos y 3.984 horas totales mínimas (3.120 lectivas y 864 productivas)."
+            },
+            {
+                q: "¿Qué tipo de competencias SENA atraviesan todas las ocupaciones de la C.N.O. y no se circunscriben a una sola disciplina?",
+                options: [
+                    "Competencias Específicas",
+                    "Competencias Transversales",
+                    "Competencias Clave únicamente",
+                    "Competencias Sectoriales"
+                ],
+                correct: 1,
+                explanation: "Así es: Las Competencias Transversales atraviesan todas las ocupaciones y estructuras curriculares por su alta transferibilidad y carácter abierto."
+            },
+            {
+                q: "¿Cuál es la estrategia didáctica general o eje metodológico del SENA fundamentado en el marco socioconstructivista?",
+                options: [
+                    "Aprendizaje por Proyectos con enfoque problémico",
+                    "Clase magistral expositiva continua",
+                    "Instrucción programada algorítmica",
+                    "Evaluación cuantitativa memorística"
+                ],
+                correct: 0,
+                explanation: "Correcto: El SENA asume como eje general el Aprendizaje por Proyectos articulado con la enseñanza y el aprendizaje problémico."
+            },
+            {
+                q: "Para el SENA (2005), la Competencia Laboral es la capacidad de una persona para:",
+                options: [
+                    "Memorizar manuales técnicos de maquinaria",
+                    "Desempeñar funciones productivas en contextos variables según estándares de calidad del sector productivo",
+                    "Cumplir un horario rígido sin intervenir en el proyecto formativo",
+                    "Obtener únicamente calificaciones aprobatorias teóricas"
+                ],
+                correct: 1,
+                explanation: "Muy bien: Define la capacidad para desempeñar funciones productivas en contextos variables según los estándares fijados por el sector."
+            }
+        ];
+
+        let currentQuizIndex = 0;
+        let selectedAnswers = new Array(quizQuestions.length).fill(null);
+
+        function renderQuiz() {
+            const body = document.getElementById('quizBody');
+            const stepText = document.getElementById('quizStepText');
+            const scoreText = document.getElementById('quizScoreText');
+            const feedback = document.getElementById('quizFeedback');
+            const btnPrev = document.getElementById('btnPrevQuiz');
+            const btnNext = document.getElementById('btnNextQuiz');
+
+            const item = quizQuestions[currentQuizIndex];
+            stepText.textContent = `Pregunta ${currentQuizIndex + 1} de ${quizQuestions.length}`;
+
+            // Contar aciertos actuales
+            let correctCount = 0;
+            selectedAnswers.forEach((ans, idx) => {
+                if (ans === quizQuestions[idx].correct) correctCount++;
+            });
+            scoreText.textContent = `Aciertos: ${correctCount}`;
+
+            // Control botón previo
+            btnPrev.disabled = currentQuizIndex === 0;
+
+            // Render opciones
+            let optionsHTML = '';
+            item.options.forEach((opt, idx) => {
+                const isSelected = selectedAnswers[currentQuizIndex] === idx;
+                const activeClasses = isSelected 
+                    ? 'border-sena-green bg-emerald-50/80 text-emerald-950 font-semibold' 
+                    : 'border-slate-200 hover:border-slate-300 text-slate-700 bg-white';
+                
+                optionsHTML += `
+                    <button onclick="handleOptionSelect(${idx})" class="w-full text-left p-3.5 rounded-xl border-2 transition-all flex items-center justify-between text-xs sm:text-sm ${activeClasses}">
+                        <span>${opt}</span>
+                        ${isSelected ? '<i class="fa-solid fa-circle-check text-sena-green text-base"></i>' : '<i class="fa-regular fa-circle text-slate-300 text-base"></i>'}
+                    </button>
+                `;
+            });
+
+            body.innerHTML = `
+                <h4 class="font-heading font-bold text-base sm:text-lg text-sena-navy mb-4">${item.q}</h4>
+                <div class="space-y-2.5">
+                    ${optionsHTML}
+                </div>
+            `;
+
+            // Feedback si ya seleccionó
+            if (selectedAnswers[currentQuizIndex] !== null) {
+                feedback.classList.remove('hidden');
+                if (selectedAnswers[currentQuizIndex] === item.correct) {
+                    feedback.className = 'mt-4 p-3.5 rounded-xl text-xs font-medium bg-emerald-100 text-emerald-900 border border-emerald-300';
+                    feedback.innerHTML = `<i class="fa-solid fa-check-circle mr-1"></i> ${item.explanation}`;
+                } else {
+                    feedback.className = 'mt-4 p-3.5 rounded-xl text-xs font-medium bg-rose-100 text-rose-900 border border-rose-300';
+                    feedback.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> Incorrecto. ${item.explanation}`;
+                }
+            } else {
+                feedback.classList.add('hidden');
+            }
+
+            // Texto botón siguiente o finalizar
+            if (currentQuizIndex === quizQuestions.length - 1) {
+                btnNext.innerHTML = 'Ver Resultados <i class="fa-solid fa-flag-checkered ml-1"></i>';
+            } else {
+                btnNext.innerHTML = 'Siguiente <i class="fa-solid fa-chevron-right text-[10px] ml-1"></i>';
+            }
+        }
+
+        function handleOptionSelect(optionIndex) {
+            selectedAnswers[currentQuizIndex] = optionIndex;
+            renderQuiz();
+        }
+
+        function nextQuizQuestion() {
+            if (selectedAnswers[currentQuizIndex] === null) {
+                const feedback = document.getElementById('quizFeedback');
+                feedback.classList.remove('hidden');
+                feedback.className = 'mt-4 p-3 rounded-xl text-xs font-medium bg-amber-100 text-amber-900 border border-amber-300';
+                feedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1"></i> Por favor selecciona una respuesta antes de continuar.';
+                return;
+            }
+
+            if (currentQuizIndex < quizQuestions.length - 1) {
+                currentQuizIndex++;
+                renderQuiz();
+            } else {
+                showQuizSummary();
+            }
+        }
+
+        function prevQuizQuestion() {
+            if (currentQuizIndex > 0) {
+                currentQuizIndex--;
+                renderQuiz();
+            }
+        }
+
+        function showQuizSummary() {
+            document.getElementById('quizContainer').classList.add('hidden');
+            const summary = document.getElementById('quizSummary');
+            summary.classList.remove('hidden');
+
+            let correctCount = 0;
+            selectedAnswers.forEach((ans, idx) => {
+                if (ans === quizQuestions[idx].correct) correctCount++;
+            });
+
+            const scoreText = document.getElementById('summaryScore');
+            const percentage = Math.round((correctCount / quizQuestions.length) * 100);
+            scoreText.innerHTML = `Has acertado <strong>${correctCount}</strong> de <strong>${quizQuestions.length}</strong> preguntas (<strong>${percentage}%</strong>). ${
+                percentage >= 80 ? '¡Excelente apropiación de los conceptos institucionales SENA!' : 'Te sugerimos repasar las secciones de la guía para reforzar los temas.'
+            }`;
+        }
+
+        function restartQuiz() {
+            currentQuizIndex = 0;
+            selectedAnswers = new Array(quizQuestions.length).fill(null);
+            document.getElementById('quizSummary').classList.add('hidden');
+            document.getElementById('quizContainer').classList.remove('hidden');
+            renderQuiz();
+        }
+
+        // SIMULADOR DE HORAS Y CRÉDITOS
+        const levelsData = {
+            'TG': { name: 'Tecnología (TG)', cred: 83, totH: 3984, credLec: 65, hLec: 3120, credProd: 18, hProd: 864 },
+            'TL': { name: 'Técnico Laboral (TL)', cred: 30, totH: 1440, credLec: 16, hLec: 768, credProd: 14, hProd: 672 },
+            'AU': { name: 'Auxiliar / Operario (AU/OP)', cred: 16, totH: 768, credLec: 11, hLec: 528, credProd: 5, hProd: 240 }
+        };
+
+        function setSimLevel(key) {
+            const data = levelsData[key];
+            const simResult = document.getElementById('simResult');
+            const lecPercent = ((data.hLec / data.totH) * 100).toFixed(1);
+            const prodPercent = ((data.hProd / data.totH) * 100).toFixed(1);
+
+            simResult.innerHTML = `
+                <div class="space-y-1">
+                    <span class="font-bold text-sena-navy text-sm block">${data.name} &bull; ${data.cred} Créditos Totales</span>
+                    <span class="text-slate-600 block">Total: <strong>${data.totH.toLocaleString()} horas</strong> (${data.hLec}h Lectivas + ${data.hProd}h Prácticas)</span>
+                </div>
+                <div class="w-full sm:w-64">
+                    <div class="flex justify-between text-[11px] font-semibold text-slate-500 mb-1">
+                        <span>Lectiva: ${lecPercent}%</span>
+                        <span>Productiva: ${prodPercent}%</span>
+                    </div>
+                    <div class="w-full bg-slate-200 h-3 rounded-full overflow-hidden flex">
+                        <div class="bg-sena-green" style="width: ${lecPercent}%" title="Lectiva"></div>
+                        <div class="bg-sena-orange" style="width: ${prodPercent}%" title="Productiva"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // DESCARGAS DE ARCHIVOS (MARKDOWN, TEXTO, CÓDIGO FUENTE, CSV)
+        function triggerDownload(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadMarkdownSummary() {
+            const mdContent = `# FORMACIÓN PROFESIONAL INTEGRAL (FPI) - ENFOQUE POR COMPETENCIAS SENA
+Fuente: Formato DE-F-025 V.04 | Resolución 2198 del 13 de diciembre de 2019 | PEI SENA
+
+## 1. Definición de la Formación Profesional Integral
+Es el proceso educativo teórico-práctico de carácter permanente, mediante el cual la persona adquiere y desarrolla conocimientos, destrezas, actitudes y valores éticos para su realización humana y participación activa en el trabajo productivo y en la toma de decisiones sociales.
+
+- **Mundo del Trabajo:** Actividad productiva laboral y desarrollo empresarial.
+- **Mundo de la Vida:** Dimensión personal y convivencia social armónica.
+
+## 2. Dimensiones de Aprendizaje
+1. **Aprender a Aprender:** Creatividad, pensamiento crítico, autonomía y formación permanente.
+2. **Aprender a Hacer (EJE CENTRAL):** Ciencia, técnica y tecnología en función del desempeño productivo.
+3. **Aprender a Ser:** Actitudes basadas en la dignidad humana y solidaridad ética.
+
+## 3. Niveles de Formación y Duración (Resolución 2198 de 2019)
+| Nivel | Créditos Mín. | Horas Totales | Créd. Lectiva | Horas Lectiva | Créd. Productiva | Horas Productiva |
+|-------|---------------|---------------|---------------|---------------|------------------|------------------|
+| Tecnología (TG) | 83 | 3.984 h | 65 | 3.120 h | 18 | 864 h |
+| Técnico Laboral (TL) | 30 | 1.440 h | 16 | 768 h | 14 | 672 h |
+| Auxiliar / Operario (AU/OP) | 16 | 768 h | 11 | 528 h | 5 | 240 h |
+
+Modalidades: Presencial, Virtual y A Distancia.
+
+## 4. Enfoque para el Desarrollo de Competencias
+- Propuesta humanista-cognitiva, sistémica, flexible y permanente.
+- Articula lo tecnológico y lo social partiendo del Proyecto de Vida del Aprendiz.
+- **Competencia Laboral (2005):** "Capacidad de una persona para desempeñar funciones productivas en contextos variables, con base en los estándares de calidad establecidos por el sector productivo."
+
+## 5. Taxonomía de Competencias SENA
+- **Competencias Específicas:** Funciones técnicas y productivas ligadas a una ocupación (C.N.O.) y Mesas Sectoriales.
+- **Competencias Básicas:** Permiten el desempeño integral en el mundo de la vida y el trabajo.
+  - **Competencias Transversales:** Atraviesan todas las ocupaciones, abiertas, generativas, éticas y organizacionales.
+  - **Competencias Clave:** Matemáticas, lectura, escritura y comunicación en lengua materna y extranjera.
+
+## 6. Contexto Pedagógico
+- **Marco Pedagógico:** Socioconstructivismo.
+- **Eje Vertebrador:** Aprendizaje por Proyectos con enfoque problémico activo.
+
+## 7. Perfiles
+- **Perfil del Aprendiz:** Activo, reflexivo, autónomo, persistente, colaborativo y autorregulado.
+- **Perfil del Egresado:** Competente técnico y socialmente, ético, crítico y comprometido con la patria y el medio ambiente.
+`;
+            triggerDownload(mdContent, 'SENA_FPI_Enfoque_Competencias.md', 'text/markdown;charset=utf-8;');
+        }
+
+        function downloadTextSummary() {
+            const txtContent = `========================================================================
+SENA - FORMACIÓN PROFESIONAL INTEGRAL: ENFOQUE POR COMPETENCIAS
+Resumen Institucional DE-F-025 V.04 - Resolución 2198 de 2019
+========================================================================
+
+1. FORMACIÓN PROFESIONAL INTEGRAL (FPI)
+Proceso teórico-práctico permanente para el desarrollo integral de conocimientos,
+destrezas y valores.
+- Aprender a Aprender: Originalidad, creatividad, autonomía.
+- Aprender a Hacer: EJE CENTRAL de la formación en el SENA.
+- Aprender a Ser: Dignidad de la persona y solidaridad social.
+
+2. NIVELES Y DURACIÓN (Resolución 2198 de 2019):
+- Tecnología (TG): 83 créditos | 3.984 h totales (3.120 h lectivas / 864 h productivas)
+- Técnico Laboral (TL): 30 créditos | 1.440 h totales (768 h lectivas / 672 h productivas)
+- Auxiliar/Operario: 16 créditos | 768 h totales (528 h lectivas / 240 h productivas)
+
+3. ENFOQUE POR COMPETENCIAS
+Enfoque Humanista-Cognitivo orientado al desarrollo humano integral, con base en
+el proyecto de vida y las Normas de Competencia Laboral fijadas por las Mesas Sectoriales.
+
+4. TAXONOMÍA:
+- Competencias Específicas: Desempeño técnico propio de una ocupación laboral.
+- Competencias Básicas: Se dividen en Transversales (ética, interacción) y Claves (matemáticas, lenguaje).
+
+5. METODOLOGÍA:
+- Aprendizaje por Proyectos
+- Enfoque problémico activo
+- Paradigma Socioconstructivista
+`;
+            triggerDownload(txtContent, 'SENA_FPI_Resumen.txt', 'text/plain;charset=utf-8;');
+        }
+
+        function downloadCSVTable() {
+            const csvContent = `Nivel,Creditos_Totales,Horas_Totales,Creditos_Lectiva,Horas_Lectiva,Creditos_Productiva,Horas_Productiva\nTecnología (TG),83,3984,65,3120,18,864\nTécnico Laboral (TL),30,1440,16,768,14,672\nAuxiliar / Operario (AU/OP),16,768,11,528,5,240`;
+            triggerDownload(csvContent, 'SENA_Resolucion_2198_Duraciones.csv', 'text/csv;charset=utf-8;');
+        }
+
+        function downloadSourceCode() {
+            const currentHTML = document.documentElement.outerHTML;
+            triggerDownload(currentHTML, 'sitio_web_sena_fpi.html', 'text/html;charset=utf-8;');
+        }
+
+        // GESTIÓN DE MODALES Y BUSCADOR
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        function toggleSearchBar() {
+            const bar = document.getElementById('searchDropdown');
+            bar.classList.toggle('hidden');
+            if (!bar.classList.contains('hidden')) {
+                const input = document.getElementById('searchInput');
+                input.focus();
+                input.value = '';
+                document.getElementById('searchResults').classList.add('hidden');
+            }
+        }
+
+        // ÍNDICE DE BÚSQUEDA EN TIEMPO REAL
+        const searchableItems = [
+            { term: 'Aprender a Hacer', section: '#dimensiones', desc: 'Eje central de la Formación Profesional Integral.' },
+            { term: 'Aprender a Aprender', section: '#dimensiones', desc: 'Desarrollo de creatividad, pensamiento crítico y autonomía.' },
+            { term: 'Aprender a Ser', section: '#dimensiones', desc: 'Actitudes basadas en la dignidad humana y valores éticos.' },
+            { term: 'Resolución 2198 de 2019', section: '#niveles', desc: 'Horas y créditos para Tecnología, Técnico y Auxiliares.' },
+            { term: 'Tecnología (TG)', section: '#niveles', desc: '83 créditos y 3.984 horas totales mínimas.' },
+            { term: 'Técnico Laboral (TL)', section: '#niveles', desc: '30 créditos y 1.440 horas totales mínimas.' },
+            { term: 'Auxiliar / Operario', section: '#niveles', desc: '16 créditos y 768 horas totales mínimas.' },
+            { term: 'Competencias Específicas', section: '#taxonomia', desc: 'Funciones productivas con conocimientos técnico-tecnológicos.' },
+            { term: 'Competencias Transversales', section: '#taxonomia', desc: 'Atraviesan las ocupaciones de la C.N.O. y no se limitan a una disciplina.' },
+            { term: 'Competencias Clave', section: '#taxonomia', desc: 'Matemáticas, lectura, escritura y comunicación.' },
+            { term: 'Aprendizaje por Proyectos', section: '#pedagogia', desc: 'Eje metodológico general y didáctica activa institucional.' },
+            { term: 'Perfil del Egresado', section: '#perfiles', desc: 'Comprensión crítica de la economía y responsabilidad social.' }
+        ];
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const val = e.target.value.toLowerCase().trim();
+            const resultsBox = document.getElementById('searchResults');
+            
+            if (val.length < 2) {
+                resultsBox.classList.add('hidden');
+                return;
+            }
+
+            const matches = searchableItems.filter(item => 
+                item.term.toLowerCase().includes(val) || item.desc.toLowerCase().includes(val)
+            );
+
+            if (matches.length > 0) {
+                resultsBox.innerHTML = matches.map(m => `
+                    <a href="${m.section}" onclick="toggleSearchBar()" class="block p-2.5 hover:bg-slate-50 transition-colors">
+                        <span class="font-bold text-sena-green text-xs block">${m.term}</span>
+                        <span class="text-slate-500 text-xs">${m.desc}</span>
+                    </a>
+                `).join('');
+                resultsBox.classList.remove('hidden');
+            } else {
+                resultsBox.innerHTML = '<div class="p-3 text-xs text-slate-400">No se encontraron conceptos coincidentes.</div>';
+                resultsBox.classList.remove('hidden');
+            }
+        });
+
+        // ESC para cerrar buscador y modales
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.getElementById('searchDropdown').classList.add('hidden');
+                closeModal('downloadModal');
+            }
+        });
+
+        // Menú Móvil
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Botón volver arriba en scroll
+        const btnTop = document.getElementById('btn-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                btnTop.classList.remove('hidden');
+                btnTop.classList.add('flex');
+            } else {
+                btnTop.classList.add('hidden');
+                btnTop.classList.remove('flex');
+            }
+        });
+
+        // Inicializar al cargar
+        window.onload = function() {
+            renderQuiz();
+            setSimLevel('TG');
+        };
+    </script>
+</body>
+</html>
